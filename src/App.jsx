@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import Die from "./Die";
+import Die from "./Die.jsx";
 import shortid from "shortid";
 import "animate.css";
 
