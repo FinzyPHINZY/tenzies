@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Die from "./Die";
-import { v4 as uuidv4 } from "uuid";
+import shortid from "shortid";
 import "animate.css";
 
 const App = () => {
@@ -10,10 +10,10 @@ const App = () => {
   const [startTime, setStartTime] = useState(null);
   const [totalTime, setTotalTime] = useState(0);
   const [lowestRolls, setLowestRolls] = useState(
-    localStorage.getItem("lowestRolls") || "--"
+    localStorage.getItem("lowestRolls") || Infinity
   );
   const [bestTime, setBestTime] = useState(
-    localStorage.getItem("bestTime") || "--"
+    localStorage.getItem("bestTime") || Infinity
   );
 
   const generateNewDie = () => {
@@ -21,7 +21,7 @@ const App = () => {
     return {
       value: num,
       isHeld: false,
-      id: uuidv4(),
+      id: shortid(),
     };
   };
   const allNewDice = () => {
@@ -71,6 +71,7 @@ const App = () => {
   }, [tenzie, startTime, bestTime, lowestRolls]);
 
   const rollDice = () => {
+    // eslint-disable-next-line
     tenzie
       ? (setDice(allNewDice), setTenzie(false), setRoll(0))
       : (setDice((oldDice) =>
@@ -80,6 +81,7 @@ const App = () => {
   };
 
   const holdDice = (id) => {
+    console.log(id);
     setDice((oldDice) =>
       oldDice.map((die) =>
         die.id === id ? { ...die, isHeld: !die.isHeld } : die
